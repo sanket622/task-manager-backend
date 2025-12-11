@@ -12,12 +12,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// GET all tasks
 app.get('/api/tasks', async (req, res) => {
   try {
     const tasks = await Task.find();
@@ -31,7 +29,6 @@ app.get('/',(req, res) => {
 res.send('Api is running')  
 })
 
-// POST new task
 app.post('/api/tasks', async (req, res) => {
   try {
     const newTask = new Task(req.body);
@@ -42,7 +39,6 @@ app.post('/api/tasks', async (req, res) => {
   }
 });
 
-// PUT update task
 app.put('/api/tasks/:id', async (req, res) => {
   try {
     const { title, description, priority, assignee } = req.body;
@@ -62,7 +58,7 @@ app.put('/api/tasks/:id', async (req, res) => {
   }
 });
 
-// PATCH move task
+
 app.patch('/api/tasks/:id/move', async (req, res) => {
   try {
     const { status } = req.body;
@@ -82,7 +78,7 @@ app.patch('/api/tasks/:id/move', async (req, res) => {
   }
 });
 
-// DELETE task
+
 app.delete('/api/tasks/:id', async (req, res) => {
   try {
     const deletedTask = await Task.findByIdAndDelete(req.params.id);
