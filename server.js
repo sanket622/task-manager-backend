@@ -27,6 +27,10 @@ app.get('/api/tasks', async (req, res) => {
   }
 });
 
+app.get('/',(req, res) => {
+res.send('Api is running')  
+})
+
 // POST new task
 app.post('/api/tasks', async (req, res) => {
   try {
